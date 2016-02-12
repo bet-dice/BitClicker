@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css' rel='stylesheet'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+
+    <link rel='stylesheet' href=styles.css'>
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+    <title>BitClicker, a Bitcoin Clicking Game/title>
+    <meta name="description" content="Play BitClicker, the bitcoin clicking game, and use your mouse to rise from a lowly CPU miner set up in your dorm to a huge datacenter filled to the brim with ASICs that ravage the the bitcoin network.">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src='./js/script.js'></script>
+
+    <script src='base.js'></script>
+    <script src='game.js'></script>
+
+
+  </head>
+  <body>
+    <header>
+      <div class='preload'>
+        <div class='percentage'>
+          <span class='percent'>0</span>%
+        </p>
+      </div>
+    </header>
+    <main class='jumbotron' style='margin-top: 0px'>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 col-md-9 col-md-offset-3">
+            <div class='ad' style='display:inline-block;width:728px;height:90px;'>
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- BitClicker Responsive -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="yourad"
+                   data-ad-slot="yourad"
+                   data-ad-format="auto"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='container-fluid'>
+        <div class='row'>
+           <div class='col-md-3 col-sm-12' id='status-div'>
+            <div id="make_sell_spacer"></div>
+            <div id="left_floatable">
+              <div id="make_sell_wrap">
+                <div id="make_div">
+                  <p>
+                      <span id="make_lbl">Bitcoins</span>
+                      (bitcoin price is <em><span id="make_qlt">NA</span></em>)<br />
+                      <span class="fa fa-btc"></span><strong></span><span id="make_amt">0</span></strong><br />
+                      <small></span><span id="clicker_rps">0</span> bitcoins mined per second (net)</small><br />
+                      <small><span id="clicker_rps_g">0</span> bitcoins mined per second (gross)</small><br />
+                      <small class="cheat_btc" id="cheatBTCsmall" style="font-weight: bold;"><span id="cheated_bitcoins">0</span> cheated bitcoins</small>
+                  </p>
+                  <button id="make_btn" class='btn btn-primary'>MINE!</button>
+                </div>
+                <hr>
+                <div id="sell_div">
+                  <p>
+                    <span id="sell_lbl">United States Dollars</span>
+                    ($<span id="sell_roi">0</span> per bitcoin)<br />
+                    $<strong><span id="sell_amt">0</span></strong><br />
+                    <small>$<span id="safe_cash">0</span> in tax havens</small><br />
+                    <small>$<span id="seller_rps">0</span> exchanged per second</small><br>
+                    <small class="cheat_btc" id="cheatUSDsmall" style="font-weight: bold;"><span id="cheated_cash">0</span> cheated cash</small>
+                  </p>
+                  <button id="sell_btn" class='btn btn-success'>EXCHANGE!</button>
+                  <br>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <br>
+              <div id="risk_div">
+                You have a <b><span id="risk_level">low</span></b> chance of losing bitcoins or hardware failure
+                (<b><span id="risk_amount">0</span>%</b>)<br />
+                You have a <b><span id="risk2_level">low</span></b> chance of an IRS audit
+                (<b><span id="risk2_amount">0</span>%</b>)
+              </div>
+              <div id="last_saved">Game saved 60 seconds ago</div>
+              <div id="last_message">No new messages</div>
+            </div> <!-- End left floatable -->
+          </div> <!-- End left_wrap -->
+          <div class='col-sm-12 col-md-9 col-md-offset-3'>
+            <br class="visible-sm">
+            <div id="tab_btns" class="btn-group">
+              <button onclick="switch_tab('clickers');" id="clickers_tab" class="btn btn-default tab">
+                Mining (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
+              </button>
+              <button onclick="switch_tab('sellers');" id="sellers_tab" class="btn btn-default tab">
+                Exchanging (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
+              </button>
+              <button onclick="switch_tab('upgrades');" id="upgrades_tab" class="btn btn-default tab">
+                Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
+              </button>
+              <button onclick="switch_tab('banks');" id="banks_tab" class="btn btn-default tab">
+                Tax Havens (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
+              </button>
+              <button onclick="switch_tab('achievements');" id="achievements_tab" class="btn btn-default tab">
+                Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
+              </button>
+              <button onclick="switch_tab('messages');" id="messages_tab" class="btn btn-default tab">
+                All Messages
+              </button>
+              <button onclick="switch_tab('misc');" id="misc_tab" class="btn btn-default tab">
+                Options &amp; Stats
+              </button>
+              <!--
+              <button onclick="switch_tab('console');" id="console_tab" class="tab">
+                  Console
+              </button>
+              -->
+            </div>
+
+            <div id="tab_divs">
+              <div class="tab_div" id="clickers_div" style="display:none;">
+                <div id="clickers"></div>
+              </div>
+
+              <div class="tab_div" id="sellers_div" style="display:none;">
+                <div id="sellers"></div>
+              </div>
+
+              <div class="tab_div" id="upgrades_div" style="display:none;">
+                <div id="upgrades"></div>
+              </div>
+
+              <div class="tab_div" id="banks_div" style="display:none;">
+                <div class="w_div" style="text-align: left; background-color: white; color: black; padding: 15px; margin-top: 5px;">
+                    <h3 class="pull-left">Total secured <b>$<span id="bank_total">0</span></b></h3>
+                    <p class="small pull-right">$<span id="bank_rps">0</span>/sec</small>
+                    <div class="clearfix"></div>
+                    <br>
+                    <a href="#" class='btn btn-primary' onclick="$('#toggle_finance_info').toggle(100); return false;">
+                      Toggle Information
+                    </a>
+                    <br>
+                    <br>
+                    <div id="toggle_finance_info">
+                      <p>
+                        Secured cash is the amount of <em>your total cash</em> that is
+                        safe from being stolen or
+                        seized by the IRS or being lost due to a hardware failure. The more secured to
+                        total cash you have, the lower the likelihood that
+                        you'll be audited. Secured cash is not a separate resource,
+                        so it can never be higher than your total cash.
+                      </p>
+                  </div>
+                </div>
+                <div id="banks"></div>
+              </div>
+
+              <div class="tab_div" id="achievements_div" style="display:none;">
+                <div id="achievements"></div>
+              </div>
+
+              <div class="tab_div" id="messages_div" style="display:none;">
+                <div id="messages" style="text-align: left; background-color: white; color: black; padding: 15px; margin-top: 5px;"></div>
+              </div>
+
+              <div class="tab_div w_div" id="misc_div" style="display:none;">
+                <div style="text-align: left; background-color: white; color: black; padding: 15px; margin-top: 5px;">
+                  <div class='row'>
+                    <div class="col-md-6">
+                      <h3>Instructions</h3>
+                      <ol>
+                        <li>Mine bitcoins</li>
+                        <li>Exchange bitcoins for USD</li>
+                        <li>Buy stuff with your exchanged money</li>
+                      </ol>
+                    </div>
+                    <div class="col-md-6">
+                      <h3>Options</h3>
+                      <div class='btn-group'>
+                        <button onclick="gm.do_reset_confirm();" class='btn btn-warning'>Reset</button>
+                        <button onclick="gm.do_reset_all_confirm();" class='btn btn-danger'>Reset All</button>
+                      </div>
+                      <br>
+                      <br>
+                      <div class='btn-group'>
+                        <button onclick="gm.do_save();" class='btn btn-success'>Save to LocalStorage</button>
+                      </div>
+                      <br>
+                      <br>
+                      <input type="checkbox" id="bigint_full" checked> <label for="bigint_full">Use full number names (e.g. 1Qt becomes 1 quintillion)</label>
+                      <br>
+                      <input type="checkbox" id="no_show_num_onClick"> <label for="no_show_num_onClick">Don't show number when you click "Mine" or "Sell" (+1, $1)</label>
+                    </div>
+                  </div>
+                  <div class='clearfix'></div>
+                  <div class='row'>
+                    <!-- no backup
+                    <div class="col-md-4">
+                      <h3>Backup</h3>
+                      <textarea id="impexp" placeholder='Paste a backup here and click import, or click create backup and copy.' style="width: 100%; height: 100px; box-shadow: 1px 1px 5px black"></textarea>
+                      <br>
+                      <button onclick="gm.do_export();" class='btn btn-success'>Create backup</button>
+                      <button onclick="gm.do_import();" class='btn btn-primary'>Import backup</button>
+                    </div>
+                    -->
+
+                    <div class="col-md-6">
+                      <h3>Stats</h3>
+                      <ul>
+                        <li>Bitcoins mined: <b><span id="made_widgets">0</span></b></li>
+                        <li>Bitcoins click-mined: <b><span id="hand_made_widgets">0</span></b></li>
+                        <li>Bitcoins sold: <b><span id="sold_widgets">0</span></b></li>
+                        <li>Bitcoins click-sold: <b><span id="hand_sold_widgets">0</span></b></li>
+                        <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
+                        <li>Total USD earned: <b>$<span id="total_cash">0</span></b></li>
+                        <li>Total USD spent: <b>$<span id="total_spent">0</span></b></li>
+                        <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
+                        <li>Bitcoins mined per click: <b><span id="click_make_amount">0</span></b></li>
+                        <li>Bitcoins exchanged per click: <b><span id="click_sell_amount">0</span></b></li>
+                      </ul>
+                    </div>
+
+                  <br>
+                  <br>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+            <!-- No more console
+                <div class="tab_div" id="console_div">
+                    <div id="console" class="w_div" style="background-color: white; border-radius: 10px; padding: 15px;">
+            <h3 style="font-size: 36px;">Console</h3>
+            <p>Type the command you wish to run (e.g. "add cash") and click the "Run" button.</p>
+                        <textarea id="console_input" style="width: 55%; font-family:monospace; padding: 2px; height: 60px; font-size: 24px; color: lime; background-color: black;"></textarea>
+                        <br>
+                        <button onclick="gm.do_run();" style="font-size: 25px; font-family: monospace;">Run &rarr;</button>
+            <div style="margin-right: 30px;">
+            <h3>Commands:</h3>
+            <ul><li>add cash</li>
+            <li>add bitcoin</li><ul>
+            </div>
+            </div>
+            </div>
+            -->
+
+            <div class="make_up"></div>
+            <div class="sell_up"></div>
+
+            <script id="tpl_achievement" type="text/template">
+              <div id="{{id}}" class="s_div panel panel-default">
+                <div class='panel-heading'>
+                  <h3 class='panel-title' id="{{id}}_lbl">
+                    {{ac.label}}
+                  </h3>
+                </div>
+                <div class='panel-body'>
+                  <p class="small">
+                    {{ac.description}}
+                  </p>
+                </div>
+              </div>
+            </script>
+
+            <script id="tpl_bank" type="text/template">
+              <div id="{{id}}" class="s_div panel panel-default">
+                <div class='panel-heading'>
+                  <h3 id="{{id}}_lbl" class='panel-title'>{{bn.label}}
+                    <label id="{{id}}_amt" class="grey pull-right">{{bn.amount}}</label>
+                  </h3>
+                </div>
+                <div class='panel-body'>
+                  <p class="small">
+                    <b>$<span id="{{id}}_cst">{{bn.cost}}</span></b> &mdash;
+                    <em class="grey">{{bn.description}}</em>
+                  </p>
+                  <p class="pull_right small">
+                    Secures <b>$<span id="{{id}}_rps">{{bn.rps}}</span></b> per second
+                  </p>
+                </div>
+                <div class='panel-footer'>
+                  <button id="{{id}}_btn" class='btn btn-success' onclick="gm.buy_bank('{{id}}')">Buy</button>
+                  <button id="{{id}}_sell_btn" class='btn btn-danger' onclick="gm.sell_bank('{{id}}')">Sell</button>
+                  <p class="clear"></p>
+                </div>
+              </div>
+            </script>
+
+            <script id="tpl_clicker" type="text/template">
+              <div id="{{id}}" class="s_div panel panel-default">
+                <div class='panel-heading'>
+                  <h3 id="{{id}}_lbl" class='panel-title'>{{cl.label}}
+                    <label id="{{id}}_amt" class="grey pull-right">{{cl.amount}}</label>
+                  </h3>
+                </div>
+                <div class='panel-body'>
+                  <p class="small">
+                    <b>$<span id="{{id}}_cst">{{cl.cost}}</span></b> &mdash;
+                    <em class="grey">{{cl.description}}</em>
+                  <br>
+                  <br>
+                  <div style="display:block;"><img height=100px src="{{cl.img}}"/></div>
+                  </p>
+                  <p class="pull_right small">
+                    Mines <b><span id="{{id}}_rps">{{cl.rps}}</span></b> per second;
+                    <b><span id="{{id}}_rsk">{{cl.risk}}</span>%</b> risk of hardware failure
+                  </p>
+                </div>
+                <div class='panel-footer'>
+                  <button id="{{id}}_btn" onclick="gm.buy_clicker('{{id}}')" class='btn btn-success'>Purchase</button>
+                  <button id="{{id}}_sell_btn" onclick="gm.sell_clicker('{{id}}')" class='btn btn-danger'>Sell</button>
+                </div>
+              </div>
+            </script>
+
+            <script id="tpl_seller" type="text/template">
+              <div id="{{id}}" class="s_div panel panel-default">
+              <div class='panel-heading'>
+                <h3 id="{{id}}_lbl" class='panel-title'>{{sl.label}}
+                  <label id="{{id}}_amt" class="grey pull-right">{{sl.amount}}</label>
+                </h3>
+              </div>
+              <div class='panel-body'>
+                <p class="small">
+                  <b>$<span id="{{id}}_cst">{{sl.cost}}</span></b> &mdash;
+                  <em class="grey">{{sl.description}}</em>
+                <br>
+                <br>
+                <div style="display:block;"><img height=100px src="{{sl.img}}"/></div>
+                </p>
+                <p class="pull_right small">
+                  Exchanges <b><span id="{{id}}_rps">{{sl.rps}}</span></b> per second;
+                  <b><span id="{{id}}_rsk">{{sl.risk}}</span>%</b> risk of loss of bitcoins
+                </p>
+              </div>
+              <div class='panel-footer'>
+                <button id="{{id}}_btn" class='btn btn-success' onclick="gm.buy_seller('{{id}}')">Purchase</button>
+                <button id="{{id}}_sell_btn" class='btn btn-danger' onclick="gm.sell_seller('{{id}}')">Sell</button>
+              </div>
+            </div>
+            </script>
+
+            <script id="tpl_upgrade" type="text/template">
+              <div id="{{id}}" class="s_div panel panel-default">
+              <div class='panel-heading'>
+                <h3 class='panel-title' id="{{id}}_lbl">
+                  {{upg.label}}
+                  <span id="{{id}}_cst" class="grey pull-right">${{upg.cost}}</span>
+                </h3>
+              </div>
+              <div class='panel-body'>
+                <p class="small grey"><em>{{upg.description}}</em></p>
+              </div>
+              <div class='panel-footer'>
+                <button id="{{id}}_btn" onclick="gm.buy_upgrade('{{id}}')" class='btn btn-success'>Purchase</button>
+              </div>
+            </div>
+            </script>
+            <style>
+            /* absolute positioning messes with site layout
+              #skyscraper {
+                  position: absolute;
+                  top: 10px;
+                  right: 10px;
+              }
+              #large-rectangle {
+                position: absolute;
+                top: 605px;
+                left: 5px;
+              }
+              @media (max-width: 1320px) {
+                #skyscraper, #large-rectangle {
+                  display: none;
+                }
+              }
+              */
+            </style>
+            <!--
+            <div id="skyscraper">
+              <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+              <!-- BitClicker Skyscraper -->
+              <!--
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:300px;height:600px"
+                   data-ad-client="yourad"
+                   data-ad-slot="yourad"></ins>
+              <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          --><!--
+            <div id='large-rectangle'>
+              <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+              <!-- BitClicker Largeg Rectangle --><!--
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:336px;height:280px"
+                   data-ad-client="yourad"
+                   data-ad-slot="yourad"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div> -->
+
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+        <div class="container-fluid" style="padding-top: 30px;">
+          <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- BitClicker Responsive -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="yourad"
+                   data-ad-slot="yourad"
+                   data-ad-format="auto"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
+      </div>
+    </main>
+    <footer class='container-fluid'>
+      <div class='row'>
+        <div class='col-md-12' id='footer-content'>
+          <div class='text-center'>
+            <p>
+              &copy;<script type="text/javascript">document.write(new Date().getFullYear());</script> Bet-Dice - BitClicker version <b><span id="version">1.0</span></b>
+            <br>
+              Last updated on <b>Wednesday, September 2, 2015 @ 4:30 PM Eastern Daylight Time</b>.
+            <br>
+            <b>BTC:</b> <br>
+            </p>
+          </div>
+          <div class="text-center">
+           
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
