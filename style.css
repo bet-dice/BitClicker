@@ -1,0 +1,126 @@
+html,
+body {
+  min-height: 110vh; /* so when the messages div is too small, the footer doesn't get covered by the sidebar */
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Exo 2', sans-serif;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.preload {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: rgba(0,0,0,0.9);
+}
+.preload .percentage {
+  font-size: 5rem;
+  color: #eee;
+}
+main {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.jumbotron {
+  color: #333;
+  background: #e65c00;
+  margin-bottom: 0;
+  padding-top: 5px;
+}
+footer {
+  width: 100%;
+  background: #e65c00;
+}
+footer #footer-content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: #eee;
+}
+.btn {
+  border-radius: 0;
+}
+@media (max-width: 991px) {
+  .tab {
+    text-align: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+}
+.semi_trans {
+  opacity: 0.5 !important;
+}
+.make_up,
+.sell_up {
+  display: none;
+  z-index: 1500;
+  position: fixed;
+  font-weight: bold;
+  color: #ccc;
+  text-shadow: 0px 1px 1px #333;
+}
+.make_up {
+  color: #58f;
+}
+.sell_up {
+  color: #5e5;
+}
+#status-div {
+  padding: 0;
+  box-shadow: 1px 1px 10px #000;
+  padding-top: 15px;
+  margin-left: 5px;
+  text-align: center;
+  background: #fff;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+          transition: opacity 0.3s;
+}
+@media (min-width: 992px) {
+  #status-div {
+    position: fixed;
+    top: 5px;
+    background: #fff;
+  }
+}
+#status-div.absolute {
+  position: absolute;
+}
+#status-div #last_saved {
+  padding: 15px;
+}
+#status-div #risk_div,
+#status-div #last_message {
+  background: #eee;
+  padding: 15px;
+}
+#status-div p {
+  font-size: 1.5rem;
+}
+.w-div {
+  background: #fff;
+}
+.panel {
+  margin-top: 15px;
+}
